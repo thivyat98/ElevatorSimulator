@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.elevatorsimulator.ElevatorSimSceneController">
+
+    <children>
+        <Text fx:id="run_simulationCounterText" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="62.13671875">
+            <font>
+                <Font size="53.0" />
+            </font>
+        </Text>
+        <ToggleButton fx:id="playButton" layoutX="62.0" mnemonicParsing="false" onMouseClicked="#PauseTimeline" prefHeight="72.0" prefWidth="72.0" text="▶">
+            <font>
+                <Font name="System Bold" size="33.0" />
+            </font>
+        </ToggleButton>
+        <ScrollPane fx:id="floorsContainer" layoutY="72.0" prefHeight="1008.0" prefWidth="1200.0">
+            <content>
+                <StackPane>
+                    <!-- Add your floorPanes here using the loop -->
+                </StackPane>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

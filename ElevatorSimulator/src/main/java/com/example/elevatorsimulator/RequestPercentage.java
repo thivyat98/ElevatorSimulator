@@ -1,8 +1,8 @@
 package com.example.elevatorsimulator;
 
 public class RequestPercentage {
-    String elevatorType;
-    double RequestPercentagepercentage;
+    protected String elevatorType;
+    protected double RequestPercentagepercentage;
 
     public RequestPercentage(String _elevatorType,double _RequestPercentagepercentage){
         this.elevatorType = _elevatorType;
