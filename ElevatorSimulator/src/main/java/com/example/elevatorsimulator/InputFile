@@ -24,3 +24,5 @@ passenger_request_percentage("Glass",5)
 number_of_elevators=8
 # Run simulation for 60 iterations
 run_simulation=60
+
+

@@ -52,67 +52,68 @@ public class ElevatorSimulation extends SimulationSettings{
 private boolean runSimulation(SimulationSettings _simulationSettings){
         String runSimulationValue = _simulationSettings.getInput();
         String segments[] = runSimulationValue.split(" ");
+
         for(int a=0; a < segments.length;a++){
-            if (segments[a].contains("floors=")){
-                String numericPart = segments[a].substring("floors=".length());
-                floors = Integer.parseInt(numericPart);
-                helloController.setfloors(floors);
+            try {
+                if (segments[a].contains("floors=")) {
+                    String numericPart = segments[a].substring("floors=".length());
+                    floors = Integer.parseInt(numericPart);
+                    helloController.setfloors(floors);
+                } else if (segments[a].contains("add_passenger(")) {
+                    String numericPart = segments[a].substring("add_passenger(".length());
+                    numericPart = numericPart.substring(0, numericPart.length() - 1);
+                    String Add_Passengersegments[] = numericPart.split(",");
+                    AddPassenger newPassenger = new AddPassenger(
+                            Integer.parseInt(Add_Passengersegments[0]),
+                            Integer.parseInt(Add_Passengersegments[1]),
+                            Integer.parseInt(Add_Passengersegments[2]),
+                            Add_Passengersegments[3],
+                            Double.parseDouble(Add_Passengersegments[4])
+                    );
+                    addAdd_passenger(newPassenger);
+                    //add_passenger.add(newPassenger);
+                } else if (segments[a].contains("elevator_type(")) {
+                    String numericPart = segments[a].substring("elevator_type(".length());
+                    numericPart = numericPart.substring(0, numericPart.length() - 1);
+                    String elevator_typesegments[] = numericPart.split(",");
+                    AddElevator newelevator_type = new AddElevator(
+                            elevator_typesegments[0],
+                            Integer.parseInt(elevator_typesegments[1]),
+                            Integer.parseInt(elevator_typesegments[2])
+                    );
+                    elevator_type.add(newelevator_type);
+                } else if (segments[a].contains("request_percentage(") && !segments[a].contains("_request_percentage")) {
+                    String numericPart = segments[a].substring("request_percentage(".length());
+                    numericPart = numericPart.substring(0, numericPart.length() - 1);
+                    String request_percentagesegments[] = numericPart.split(",");
+                    RequestPercentage newrequest_percentage = new RequestPercentage(
+                            request_percentagesegments[0],
+                            Double.parseDouble(request_percentagesegments[1])
+                    );
+                    request_percentage.add(newrequest_percentage);
+                } else if (segments[a].contains("passenger_request_percentage(")) {
+                    String numericPart = segments[a].substring("passenger_request_percentage(".length());
+                    numericPart = numericPart.substring(0, numericPart.length() - 1);
+                    String passenger_request_percentagesegments[] = numericPart.split(",");
+                    PassengerRequestPercentage newpassenger_request_percentage = new PassengerRequestPercentage(
+                            passenger_request_percentagesegments[0],
+                            Double.parseDouble(passenger_request_percentagesegments[1])
+                    );
+                    passenger_request_percentage.add(newpassenger_request_percentage);
+                } else if (segments[a].contains("number_of_elevators=")) {
+                    String numericPart = segments[a].substring("number_of_elevators=".length());
+                    number_of_elevators = Integer.parseInt(numericPart);
+                    helloController.setNumber_of_elevators(number_of_elevators);
+                } else if (segments[a].contains("run_simulation=")) {
+                    String numericPart = segments[a].substring("run_simulation=".length());
+                    run_simulation = Integer.parseInt(numericPart);
+                    helloController.setRunSimulation(run_simulation);
+                }
             }
-            else if (segments[a].contains("add_passenger(")) {
-                String numericPart = segments[a].substring("add_passenger(".length());
-                numericPart = numericPart.substring(0, numericPart.length() - 1);
-                String Add_Passengersegments[] = numericPart.split(",");
-                AddPassenger newPassenger = new AddPassenger(
-                        Integer.parseInt(Add_Passengersegments[0]),
-                        Integer.parseInt(Add_Passengersegments[1]),
-                        Integer.parseInt(Add_Passengersegments[2]),
-                        Add_Passengersegments[3],
-                        Double.parseDouble(Add_Passengersegments[4])
-                );
-                addAdd_passenger(newPassenger);
-                //add_passenger.add(newPassenger);
+            catch(Exception e){
+                    System.out.println("Bad Input: can not read string value");
             }
-            else if (segments[a].contains("elevator_type(")) {
-                String numericPart = segments[a].substring("elevator_type(".length());
-                numericPart = numericPart.substring(0, numericPart.length() - 1);
-                String elevator_typesegments[] = numericPart.split(",");
-                AddElevator newelevator_type = new AddElevator(
-                        elevator_typesegments[0],
-                        Integer.parseInt(elevator_typesegments[1]),
-                        Integer.parseInt(elevator_typesegments[2])
-                );
-                elevator_type.add(newelevator_type);
-            }
-            else if (segments[a].contains("request_percentage(") && !segments[a].contains("_request_percentage")) {
-                String numericPart = segments[a].substring("request_percentage(".length());
-                numericPart = numericPart.substring(0, numericPart.length() - 1);
-                String request_percentagesegments[] = numericPart.split(",");
-                RequestPercentage newrequest_percentage = new RequestPercentage(
-                        request_percentagesegments[0],
-                        Double.parseDouble(request_percentagesegments[1])
-                );
-                request_percentage.add(newrequest_percentage);
-            }
-            else if (segments[a].contains("passenger_request_percentage(")) {
-                String numericPart = segments[a].substring("passenger_request_percentage(".length());
-                numericPart = numericPart.substring(0, numericPart.length() - 1);
-                String passenger_request_percentagesegments[] = numericPart.split(",");
-                PassengerRequestPercentage newpassenger_request_percentage = new PassengerRequestPercentage(
-                        passenger_request_percentagesegments[0],
-                        Double.parseDouble(passenger_request_percentagesegments[1])
-                );
-                passenger_request_percentage.add(newpassenger_request_percentage);
-            }
-            else if (segments[a].contains("number_of_elevators=")){
-                String numericPart = segments[a].substring("number_of_elevators=".length());
-                number_of_elevators = Integer.parseInt(numericPart);
-                helloController.setNumber_of_elevators(number_of_elevators);
-            }
-            else if (segments[a].contains("run_simulation=")){
-                String numericPart = segments[a].substring("run_simulation=".length());
-                run_simulation = Integer.parseInt(numericPart);
-                helloController.setRunSimulation(run_simulation);
-            }
+
         }
 //---------------------------------------------------------------------------------------------------
         //printing out the contains of arraylist and variables

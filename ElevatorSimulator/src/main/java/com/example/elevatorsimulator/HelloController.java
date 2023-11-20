@@ -50,7 +50,7 @@ public class HelloController implements Initializable {
         this.Number_of_elevators = Number_of_elevators;
     }
     public void setSimulationSettings(SimulationSettings simulationSettings) {
-        // Your implementation here
+
     }
 
     //get methods--------------------------------------------------------------------
@@ -109,17 +109,10 @@ protected void onHelloButtonClick(ActionEvent event) {
         return;
     }
     ElevatorSimSceneController elevatorSimSceneController = loader.getController();
-
-    // Assuming you have a SimulationSettings instance named simulationSettings
     SimulationSettings simulationSettings = new SimulationSettings();
-
-    // Set the SimulationSettings instance
     elevatorSimSceneController.setSimulationSettings(simulationSettings);
-
-    // Other set methods if needed
     elevatorSimSceneController.setRun_simulation(getRunSimulation());
     elevatorSimSceneController.setHelloController(this);
-
     Scene ElevatorSimScene = new Scene(root);
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.setScene(ElevatorSimScene);

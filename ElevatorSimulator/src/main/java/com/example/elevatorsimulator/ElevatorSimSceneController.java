@@ -58,7 +58,7 @@ public class ElevatorSimSceneController implements Initializable{
     public ElevatorSimulation elevatorsimulation;
     private ElevatorSimulation elevatorSimulation;
 
-    //set and get methods-----------------------------------------------------------------------------------------
+//set and get methods-----------------------------------------------------------------------------------------
     public void setRun_simulation(int a) {
         this.Run_simulation = a;
     }
@@ -90,6 +90,7 @@ public class ElevatorSimSceneController implements Initializable{
         for (int a = 0; a < Floors; a++) {
             createFloor(a);
         }
+
         ArrayList<AddPassenger> add_passengerList = simulationSettings.getAddPassengerList();
         if (add_passengerList != null && !add_passengerList.isEmpty()) {
             for (AddPassenger passenger : add_passengerList) {
@@ -123,7 +124,7 @@ public class ElevatorSimSceneController implements Initializable{
             System.out.println("Timeline paused");
         }
     }
-    //Floor
+//Floor-------------------------------------------------------------------------------------------------
     private void createFloor(int floorIndex) {
         HBox hBoxFloor = createFloorPane(floorIndex);
         VBoxfloor.getChildren().add(hBoxFloor);
@@ -143,12 +144,8 @@ public class ElevatorSimSceneController implements Initializable{
             }
         }
     }
-
-
-
     private HBox createFloorPane(int floorIndex) {
         HBox hBoxFloor = new HBox();
-
         hBoxFloor.setAlignment(Pos.BOTTOM_CENTER);
         hBoxFloor.setStyle("-fx-background-color: grey; -fx-border-style: solid; -fx-border-width: 1px; -fx-border-color:#ADD8E6; ");
         hBoxFloor.setPrefWidth(1200);
@@ -156,7 +153,7 @@ public class ElevatorSimSceneController implements Initializable{
 
         return hBoxFloor;
     }
-    //Elevator
+//Elevator-------------------------------------------------------------------------------------------------
     private ToggleButton createElevatorToggleButton(int elevatorIndex, boolean firstfloor) {
         ToggleButton elevatorButton = new ToggleButton();;
         if (firstfloor == false){
@@ -200,25 +197,21 @@ public class ElevatorSimSceneController implements Initializable{
             System.out.println("Elevator " + (elevatorIndex + 1) + " is on floor: " + currentfloorNum + ", " + isElevatorOnFloor);
         });
     }
-    private HBox createPersonBox(int passengerID) {
-        HBox personBox = new HBox();
-
-        // Set up the appearance of the person box
-        personBox.setAlignment(Pos.CENTER);
-        personBox.setStyle("-fx-background-color: #FFD700; -fx-border-style: solid; -fx-border-width: 1px; -fx-border-color: #000;");
-        personBox.setPrefSize(40, 40);
-
-        // You can add more content to the person box, such as a label displaying the passengerID
+//Passenger-------------------------------------------------------------------------------------------------
+    private HBox createPassengerBox(int passengerID) {
+        HBox PassengerBox = new HBox();
+        PassengerBox.setAlignment(Pos.CENTER);
+        PassengerBox.setStyle("-fx-background-color: #FFD700; -fx-border-style: solid; -fx-border-width: 1px; -fx-border-color: #000;");
+        PassengerBox.setPrefSize(40, 40);
         Label label = new Label(String.valueOf(passengerID));
-        personBox.getChildren().add(label);
-
-        return personBox;
+        PassengerBox.getChildren().add(label);
+        return PassengerBox;
     }
 
-    private void addPersonToFloor(HBox personBox, int floorNum) {
+    private void addPassengerToFloor(HBox PassengerBox, int floorNum) {
         VBox floorContainer = (VBox) VBoxfloor.getChildren().get(floorNum - 1);
-        floorContainer.getChildren().add(personBox);
-        System.out.println("Person with ID " + personBox.getChildren().get(0) + " added to floor " + floorNum);
+        floorContainer.getChildren().add(PassengerBox);
+        System.out.println("Person with ID " + PassengerBox.getChildren().get(0) + " added to floor " + floorNum);
     }
 
 
