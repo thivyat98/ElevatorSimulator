@@ -1,10 +1,17 @@
 package com.example.elevatorsimulator;
 
 public class AddElevator extends Elevator{
-    public AddElevator(String _elevatorType,int _elevatorID,int _maxCapacities){
+    public AddElevator(){
+        this.elevatorType = "";
+        this.maxCapacities = 0;
+        this.elevatorRequestPercentage = 0.00;
+
+    }
+    public AddElevator(String _elevatorType,int _maxCapacities, double _elevatorRequestPercentage){
         this.elevatorType = _elevatorType;
-        this.elevatorID = _elevatorID;
         this.maxCapacities = _maxCapacities;
+        this.elevatorRequestPercentage = _elevatorRequestPercentage;
+
 
     }
 

@@ -1,8 +1,16 @@
 package com.example.elevatorsimulator;
 
 public class AddPassenger extends Passenger {
+
     protected double AddPassengerpercentage;
     protected String passengerType;
+    public AddPassenger() {
+        this.passengerID = 0;
+        this.startFloor = 0;
+        this.endFloor = 0;
+        this.passengerType = "";
+        this.AddPassengerpercentage = 0.00;
+    }
     public AddPassenger(int _passengerID,int _startFloor,int _endFloor,String _passengerType, double _AddPassengerpercentage) {
         this.passengerID = _passengerID;
         this.startFloor = _startFloor;

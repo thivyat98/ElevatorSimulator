@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
 import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;import com.example.elevatorsimulator.SimulationSettings;
 
-public class ElevatorSimSceneController implements Initializable{
+public class ElevatorSimSceneController extends SimulationSettings implements Initializable {
 //FMML-----------------------------------------------------------------------------------------
     @FXML
     private Text run_simulationCounterText;
@@ -59,17 +59,19 @@ public class ElevatorSimSceneController implements Initializable{
     private ElevatorSimulation elevatorSimulation;
 
 //set and get methods-----------------------------------------------------------------------------------------
+    // Constructor
+    public ElevatorSimSceneController(ElevatorSimulation elevatorSimulation) {
+        this.elevatorSimulation = elevatorSimulation;
+    }
     public void setRun_simulation(int a) {
         this.Run_simulation = a;
     }
     public void setHelloController(HelloController helloController) {
         this.helloController = helloController;
-
         initializeTimeline();
     }
     public void setElevatorSimSceneController(ElevatorSimSceneController elevatorSimSceneController) {
         this.elevatorSimSceneController = elevatorSimSceneController;
-        Floors = helloController.getfloors();;
     }
     public void setFloors(int Floors) {
         this.Floors = Floors;
@@ -79,6 +81,9 @@ public class ElevatorSimSceneController implements Initializable{
     }
     public void setElevatorSimulation(ElevatorSimulation elevatorSimulation){
         this.elevatorSimulation = elevatorSimulation;
+    }
+    public ElevatorSimSceneController() {
+        // Initialize any default values or leave it empty if not needed.
     }
 //initializeTimeline (to get helloController working)-------------------------------------------------------------------------
     public void initializeTimeline() {
@@ -90,21 +95,32 @@ public class ElevatorSimSceneController implements Initializable{
         for (int a = 0; a < Floors; a++) {
             createFloor(a);
         }
-
-        ArrayList<AddPassenger> add_passengerList = simulationSettings.getAddPassengerList();
-        if (add_passengerList != null && !add_passengerList.isEmpty()) {
-            for (AddPassenger passenger : add_passengerList) {
-                System.out.println("Passenger ID: " + passenger.getPassengerID());
-                System.out.println("startFloor: " + passenger.getstartFloor());
-            }
-        } else {
-            System.out.println("add_passengerList is empty or null.");
+        ElevatorSimulation simulation = new ElevatorSimulation();
+        ElevatorSimSceneController sceneController = new ElevatorSimSceneController(simulation);
+        ArrayList<AddPassenger> passengers = elevatorSimulation.getAddPassenger();
+        System.out.println("Size of add_passenger: " + passengers.size());
+        //⌄⌄⌄⌄⌄⌄This creates an error b/c the list is blank⌄⌄⌄⌄⌄⌄that why it is commented
+        /*
+        for (AddPassenger passenger : passengers) {
+            System.out.println(passenger);
         }
 
+         */
+        //This part does not work the output is []
+        //add_passengerList is empty or null.
 
+        // Now you can iterate over the addPassengerList and access the information
+        /*
+        for (AddPassenger addPassenger : addPassengerList) {
+            System.out.println("Passenger ID: " + addPassenger.getPassengerID());
+            System.out.println("Start Floor: " + addPassenger.getstartFloor());
+            // Add other fields as needed
+        }
 
+         */
+        //--------------------------------------------------------------
         run_simulationCounterText.setText(String.valueOf(i));
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {
             i++;
             run_simulationCounterText.setText(String.valueOf(i));
         }));
