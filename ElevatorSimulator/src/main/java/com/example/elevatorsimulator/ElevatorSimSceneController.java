@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
 import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;import com.example.elevatorsimulator.SimulationSettings;
 
-public class ElevatorSimSceneController extends SimulationSettings implements Initializable {
+public class ElevatorSimSceneController implements Initializable{
 //FMML-----------------------------------------------------------------------------------------
     @FXML
     private Text run_simulationCounterText;
@@ -83,10 +83,12 @@ public class ElevatorSimSceneController extends SimulationSettings implements In
         this.elevatorSimulation = elevatorSimulation;
     }
     public ElevatorSimSceneController() {
-        // Initialize any default values or leave it empty if not needed.
     }
+    public ArrayList<AddPassenger> ESCadd_passenger = new ArrayList<>();
+
 //initializeTimeline (to get helloController working)-------------------------------------------------------------------------
     public void initializeTimeline() {
+        ArrayList<Integer> intArrayList = new ArrayList<>();
         Number_of_Elevators = helloController.getNumber_of_elevators();
         Run_simulation = helloController.getRunSimulation();
         Floors = helloController.getfloors();
@@ -95,17 +97,15 @@ public class ElevatorSimSceneController extends SimulationSettings implements In
         for (int a = 0; a < Floors; a++) {
             createFloor(a);
         }
-        ElevatorSimulation simulation = new ElevatorSimulation();
-        ElevatorSimSceneController sceneController = new ElevatorSimSceneController(simulation);
-        ArrayList<AddPassenger> passengers = elevatorSimulation.getAddPassenger();
-        System.out.println("Size of add_passenger: " + passengers.size());
+        intArrayList.add(2);
+        System.out.println(intArrayList);
+        //System.out.println("ElevatorSimSceneController" + esc.add_passenger);
+        //ArrayLizst<AddPassenger> passengers = simulationSettings.getAddPassenger();
+        //System.out.println("Size of add_passenger: " + passengers.size());
         //⌄⌄⌄⌄⌄⌄This creates an error b/c the list is blank⌄⌄⌄⌄⌄⌄that why it is commented
-        /*
-        for (AddPassenger passenger : passengers) {
-            System.out.println(passenger);
-        }
 
-         */
+        printPassenger();
+
         //This part does not work the output is []
         //add_passengerList is empty or null.
 
@@ -229,11 +229,20 @@ public class ElevatorSimSceneController extends SimulationSettings implements In
         floorContainer.getChildren().add(PassengerBox);
         System.out.println("Person with ID " + PassengerBox.getChildren().get(0) + " added to floor " + floorNum);
     }
+    public void getaddPassenger(AddPassenger a){
+        ESCadd_passenger.add(a);
+        System.out.println("adwa " + a);
 
-
-    @Override
+    }
+    public void printPassenger(){
+        for (int i = 0; i < ESCadd_passenger.size(); i++) {
+            System.out.println("ttt" + ESCadd_passenger.get(i));
+        }
+    }
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+
 
 }

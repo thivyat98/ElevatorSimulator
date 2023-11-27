@@ -6,6 +6,7 @@ public class SimulationSettings {
     //variables and arraylists---------------------------------------------------------------
     public String input;
     public int floors;
+
     public ArrayList<AddPassenger> add_passenger = new ArrayList<>();
     public ArrayList<AddElevator> add_elevator = new ArrayList<>();
     public ArrayList<RequestPercentage> request_percentage = new ArrayList<>();
@@ -29,6 +30,10 @@ public class SimulationSettings {
     //add methods--------------------------------------------------------------------------------------------------------
     public ArrayList<AddPassenger> getAddPassenger() {
         return this.add_passenger;
+    }
+    public void addAddPassenger(AddPassenger a) {
+        add_passenger.add(a);
+        System.out.println("ggg"+ this.add_passenger);
     }
     public void addElevator_type(AddElevator a) {
         add_elevator.add(a);

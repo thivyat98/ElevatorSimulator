@@ -57,8 +57,8 @@ public class ElevatorSimulation extends SimulationSettings {
         this.helloController = helloController;
     }
     public ElevatorSimulation() {
-
     }
+    public ElevatorSimSceneController esc = new ElevatorSimSceneController();
     //---------------------------------------------------------------------------------------------------
     private boolean runSimulation(SimulationSettings _simulationSettings) {
 
@@ -84,7 +84,7 @@ public class ElevatorSimulation extends SimulationSettings {
                             Double.parseDouble(Add_Passengersegments[4])
                     );
                     sm.add_passenger.add(newPassenger);
-                    add_passenger.add(newPassenger);
+                    esc.getaddPassenger(newPassenger);
                 } else if (segments[a].contains("elevator_type(")) {
                     String numericPart = segments[a].substring("elevator_type(".length());
                     numericPart = numericPart.substring(0, numericPart.length() - 1);
