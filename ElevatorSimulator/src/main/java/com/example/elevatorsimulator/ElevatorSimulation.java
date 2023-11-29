@@ -52,13 +52,11 @@ public class ElevatorSimulation extends SimulationSettings {
     }
 
     HelloController helloController;
-
     public ElevatorSimulation(HelloController helloController) {
         this.helloController = helloController;
     }
-    public ElevatorSimulation() {
-    }
-    public ElevatorSimSceneController esc = new ElevatorSimSceneController();
+    public ElevatorSimulation() {}
+    public HelloController hw;
     //---------------------------------------------------------------------------------------------------
     private boolean runSimulation(SimulationSettings _simulationSettings) {
 
@@ -66,7 +64,6 @@ public class ElevatorSimulation extends SimulationSettings {
         String segments[] = runSimulationValue.split(" ");
         SimulationSettings sm = new SimulationSettings();
         for (int a = 0; a < segments.length; a++) {
-
             try {
                 if (segments[a].contains("floors=")) {
                     String numericPart = segments[a].substring("floors=".length());
@@ -84,7 +81,7 @@ public class ElevatorSimulation extends SimulationSettings {
                             Double.parseDouble(Add_Passengersegments[4])
                     );
                     sm.add_passenger.add(newPassenger);
-                    esc.getaddPassenger(newPassenger);
+
                 } else if (segments[a].contains("elevator_type(")) {
                     String numericPart = segments[a].substring("elevator_type(".length());
                     numericPart = numericPart.substring(0, numericPart.length() - 1);
@@ -93,10 +90,8 @@ public class ElevatorSimulation extends SimulationSettings {
                             elevator_typesegments[0],
                             Integer.parseInt(elevator_typesegments[1]),
                             Integer.parseInt(elevator_typesegments[2])
-
                     );
                     sm.add_elevator.add(newelevator_type);
-                    add_elevator.add(newelevator_type);
                 } else if (segments[a].contains("request_percentage(") && !segments[a].contains("_request_percentage")) {
                     String numericPart = segments[a].substring("request_percentage(".length());
                     numericPart = numericPart.substring(0, numericPart.length() - 1);
@@ -106,7 +101,6 @@ public class ElevatorSimulation extends SimulationSettings {
                             Double.parseDouble(request_percentagesegments[1])
                     );
                     sm.request_percentage.add(newrequest_percentage);
-                    request_percentage.add(newrequest_percentage);
                 } else if (segments[a].contains("passenger_request_percentage(")) {
                     String numericPart = segments[a].substring("passenger_request_percentage(".length());
                     numericPart = numericPart.substring(0, numericPart.length() - 1);
@@ -116,7 +110,6 @@ public class ElevatorSimulation extends SimulationSettings {
                             Double.parseDouble(passenger_request_percentagesegments[1])
                     );
                     sm.passenger_request_percentage.add(newpassenger_request_percentage);
-                    passenger_request_percentage.add(newpassenger_request_percentage);
                 } else if (segments[a].contains("number_of_elevators=")) {
                     String numericPart = segments[a].substring("number_of_elevators=".length());
                     number_of_elevators = Integer.parseInt(numericPart);
@@ -130,7 +123,8 @@ public class ElevatorSimulation extends SimulationSettings {
                 System.out.println("Bad Input: can not read string value");
             }
         }
-
+        System.out.println("fff" + sm + "fff");
+        hw = new HelloController(sm);
 
 
 //---------------------------------------------------------------------------------------------------

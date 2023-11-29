@@ -60,8 +60,8 @@ public class ElevatorSimSceneController implements Initializable{
 
 //set and get methods-----------------------------------------------------------------------------------------
     // Constructor
-    public ElevatorSimSceneController(ElevatorSimulation elevatorSimulation) {
-        this.elevatorSimulation = elevatorSimulation;
+    public ElevatorSimSceneController(SimulationSettings sm) {
+        this.simulationSettings = sm;
     }
     public void setRun_simulation(int a) {
         this.Run_simulation = a;
@@ -84,7 +84,7 @@ public class ElevatorSimSceneController implements Initializable{
     }
     public ElevatorSimSceneController() {
     }
-    public ArrayList<AddPassenger> ESCadd_passenger = new ArrayList<>();
+
 
 //initializeTimeline (to get helloController working)-------------------------------------------------------------------------
     public void initializeTimeline() {
@@ -97,14 +97,14 @@ public class ElevatorSimSceneController implements Initializable{
         for (int a = 0; a < Floors; a++) {
             createFloor(a);
         }
-        intArrayList.add(2);
-        System.out.println(intArrayList);
+        //intArrayList.add(2);
+        //System.out.println(intArrayList);
         //System.out.println("ElevatorSimSceneController" + esc.add_passenger);
         //ArrayLizst<AddPassenger> passengers = simulationSettings.getAddPassenger();
         //System.out.println("Size of add_passenger: " + passengers.size());
         //⌄⌄⌄⌄⌄⌄This creates an error b/c the list is blank⌄⌄⌄⌄⌄⌄that why it is commented
 
-        printPassenger();
+        //printPassenger();
 
         //This part does not work the output is []
         //add_passengerList is empty or null.
@@ -118,6 +118,7 @@ public class ElevatorSimSceneController implements Initializable{
         }
 
          */
+        System.out.println("sss"+ simulationSettings.add_passenger + "sss");
         //--------------------------------------------------------------
         run_simulationCounterText.setText(String.valueOf(i));
         timeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {
@@ -229,16 +230,7 @@ public class ElevatorSimSceneController implements Initializable{
         floorContainer.getChildren().add(PassengerBox);
         System.out.println("Person with ID " + PassengerBox.getChildren().get(0) + " added to floor " + floorNum);
     }
-    public void getaddPassenger(AddPassenger a){
-        ESCadd_passenger.add(a);
-        System.out.println("adwa " + a);
 
-    }
-    public void printPassenger(){
-        for (int i = 0; i < ESCadd_passenger.size(); i++) {
-            System.out.println("ttt" + ESCadd_passenger.get(i));
-        }
-    }
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }

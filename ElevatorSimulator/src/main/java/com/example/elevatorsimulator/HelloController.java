@@ -32,13 +32,12 @@ public class HelloController implements Initializable {
     @FXML
     private Button HelloButton;
 
-
-
     //variables--------------------------------------------------------------------
     private int run_simulation;
     private int floors;
     private int Number_of_elevators;
     private ElevatorSimSceneController elevatorSimSceneController;
+    private SimulationSettings sm;
     //set methods--------------------------------------------------------------------
     public void setRunSimulation(int run_simulation) {
         this.run_simulation = run_simulation;
@@ -49,10 +48,7 @@ public class HelloController implements Initializable {
     public void setNumber_of_elevators(int Number_of_elevators) {
         this.Number_of_elevators = Number_of_elevators;
     }
-    public void setSimulationSettings(SimulationSettings simulationSettings) {
-
-    }
-
+    public ElevatorSimSceneController esc;
     //get methods--------------------------------------------------------------------
     public int getRunSimulation(){
         return run_simulation;
@@ -63,6 +59,10 @@ public class HelloController implements Initializable {
     public int getNumber_of_elevators(){
         return Number_of_elevators;
     }
+    HelloController(SimulationSettings _sm){
+        this.sm = _sm;
+    }
+
 
     //---------------------------------------------------------------------------
 
@@ -73,30 +73,7 @@ public class HelloController implements Initializable {
         run_simulation = getRunSimulation();
 
     }
-/*
-    @FXML
-    protected void onHelloButtonClick(ActionEvent event) {
 
-        System.out.println("Button clicked");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ElevatorSimScene.fxml"));
-        Parent root;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-        ElevatorSimSceneController elevatorSimSceneController = loader.getController();
-        elevatorSimSceneController.setRun_simulation(getRunSimulation());
-        elevatorSimSceneController.setHelloController(this);
-        Scene ElevatorSimScene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(ElevatorSimScene);
-        stage.show();
-
-    }
-
- */
 @FXML
 protected void onHelloButtonClick(ActionEvent event) {
     System.out.println("Button clicked");
@@ -113,6 +90,7 @@ protected void onHelloButtonClick(ActionEvent event) {
     elevatorSimSceneController.setSimulationSettings(simulationSettings);
     elevatorSimSceneController.setRun_simulation(getRunSimulation());
     elevatorSimSceneController.setHelloController(this);
+    elevatorSimSceneController.setSimulationSettings(sm);
     Scene ElevatorSimScene = new Scene(root);
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.setScene(ElevatorSimScene);
