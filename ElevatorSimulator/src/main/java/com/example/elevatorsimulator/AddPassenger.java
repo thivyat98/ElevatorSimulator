@@ -1,7 +1,9 @@
 package com.example.elevatorsimulator;
 
-public class AddPassenger extends Passenger {
-
+public class AddPassenger  {
+    protected int passengerID;
+    protected int startFloor;
+    protected int endFloor;
     protected double AddPassengerpercentage;
     protected String passengerType;
     public AddPassenger() {
@@ -18,15 +20,7 @@ public class AddPassenger extends Passenger {
         this.passengerType = _passengerType;
         this.AddPassengerpercentage = _AddPassengerpercentage;
     }
-    public boolean requestElevator(direction _direction, SimulationSettings _settings) {
-        return false;
-    }
-    public int getPassengerID(){
-        return passengerID;
-    }
-    public int getstartFloor(){
-        return startFloor;
-    }
+
     public String toString() {
         return "AddPassenger{" +
                 "passengerID=" + passengerID +
@@ -35,5 +29,14 @@ public class AddPassenger extends Passenger {
                 ", passengerType='" + passengerType + '\'' +
                 ", AddPassengerpercentage=" + AddPassengerpercentage +
                 '}';
+    }
+    public int getPassengerID(){
+        return passengerID;
+    }
+    public int getstartFloor(){
+        return startFloor;
+    }
+    public int getendFloor(){
+        return endFloor;
     }
 }

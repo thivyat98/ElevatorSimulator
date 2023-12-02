@@ -6,13 +6,14 @@ public class SimulationSettings {
     //variables and arraylists---------------------------------------------------------------
     public String input;
     public int floors;
-
+    public int number_of_elevators;
+    public int run_simulation;
+    public SimulationSettings SimulationSettingssm;
     public ArrayList<AddPassenger> add_passenger = new ArrayList<>();
     public ArrayList<AddElevator> add_elevator = new ArrayList<>();
     public ArrayList<RequestPercentage> request_percentage = new ArrayList<>();
     public ArrayList<PassengerRequestPercentage> passenger_request_percentage = new ArrayList<>();
-    public int number_of_elevators;
-    public int run_simulation;
+    private static final SimulationSettings instance = new SimulationSettings();
 //-------------------------------------------------------------------------------------------------------------
     public SimulationSettings(){
         this.input = "";
@@ -27,30 +28,47 @@ public class SimulationSettings {
     public SimulationSettings(HelloController helloController) {
         this.helloController = helloController;
     }
+
     //add methods--------------------------------------------------------------------------------------------------------
     public ArrayList<AddPassenger> getAddPassenger() {
         return this.add_passenger;
     }
-    public void addAddPassenger(AddPassenger a) {
-        add_passenger.add(a);
-        System.out.println("ggg"+ this.add_passenger);
-    }
-    public void addElevator_type(AddElevator a) {
-        add_elevator.add(a);
-    }
-    public void addRequest_percentage(RequestPercentage a) {
-        request_percentage.add(a);
-    }
-    public void addPassengerRequestPercentage(PassengerRequestPercentage a) {
-        passenger_request_percentage.add(a);
-    }
-    //sets and gets methods--------------------------------------------------------------------------------------------
+    public void setSm(SimulationSettings newSm) {
+        this.SimulationSettingssm = newSm;
+        System.out.println(SimulationSettingssm);
 
+    }
+    //set methods--------------------------------------------------------------------
+    public void setRunSimulation(int run_simulation) {
+        this.run_simulation = run_simulation;
+    }
+    public void setfloors(int floors) {
+        this.floors = floors;
+    }
+    public void setNumber_of_elevators(int Number_of_elevators) {
+        this.number_of_elevators = Number_of_elevators;
+    }
+    //get methods--------------------------------------------------------------------
+    public int getRunSimulation(){
+        return run_simulation;
+    }
+    public int getfloors(){
+        return floors;
+    }
+    public int getNumber_of_elevators(){
+        return number_of_elevators;
+    }
+    public SimulationSettings getSimulationSettings() {
+        return SimulationSettingssm;
+    }
     //toString print---------------------------------------------------------------------------------------------------
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
         //printing out the contains of arraylist and variables
+        //floors variable
+        result.append("floors: " + floors + " ");
+        result.append("\n \n");
         // add_passenger
         result.append("AddPassenger\n");
         for (AddPassenger addPassenger : add_passenger) {
@@ -82,6 +100,12 @@ public class SimulationSettings {
             result.append("passengerType: ").append(passengerRequestPercentage.passengerType).append(" ");
             result.append("PassengerRequestpercentage: ").append(passengerRequestPercentage.PassengerRequestpercentage).append("\n");
         }
+        result.append("\n");
+        //Number of elevators in the system
+        result.append("number_of_elevatorss: " + number_of_elevators + " ");
+        result.append("\n \n");
+        //Run simulation for 60 iterations
+        result.append("run_simulation " + run_simulation);
 
         return result.toString();
     }

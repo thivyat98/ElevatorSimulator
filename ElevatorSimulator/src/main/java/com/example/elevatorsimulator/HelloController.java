@@ -25,7 +25,7 @@ import javafx.scene.Node;
 import javafx.event.Event;import com.example.elevatorsimulator.SimulationSettings;
 
 
-public class HelloController implements Initializable {
+public class HelloController extends SimulationSettings implements Initializable {
     //FXML----------------------------------------------------------------------
     @FXML
     private AnchorPane floor_;
@@ -33,36 +33,8 @@ public class HelloController implements Initializable {
     private Button HelloButton;
 
     //variables--------------------------------------------------------------------
-    private int run_simulation;
-    private int floors;
-    private int Number_of_elevators;
     private ElevatorSimSceneController elevatorSimSceneController;
-    private SimulationSettings sm;
-    //set methods--------------------------------------------------------------------
-    public void setRunSimulation(int run_simulation) {
-        this.run_simulation = run_simulation;
-    }
-    public void setfloors(int floors) {
-        this.floors = floors;
-    }
-    public void setNumber_of_elevators(int Number_of_elevators) {
-        this.Number_of_elevators = Number_of_elevators;
-    }
-    public ElevatorSimSceneController esc;
-    //get methods--------------------------------------------------------------------
-    public int getRunSimulation(){
-        return run_simulation;
-    }
-    public int getfloors(){
-        return floors;
-    }
-    public int getNumber_of_elevators(){
-        return Number_of_elevators;
-    }
-    HelloController(SimulationSettings _sm){
-        this.sm = _sm;
-    }
-
+    public SimulationSettings Hellosm;
 
     //---------------------------------------------------------------------------
 
@@ -70,10 +42,14 @@ public class HelloController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ElevatorSimulation _simulation = new ElevatorSimulation(this);
         _simulation.initSimulation("C:\\Users\\jyi95\\Downloads\\ElevatorSimulator\\src\\main\\java\\com\\example\\elevatorsimulator\\InputFile");
-        run_simulation = getRunSimulation();
 
     }
-
+    public HelloController(){
+        this.Hellosm = new SimulationSettings();
+    }
+    public void setSimulationSettings(SimulationSettings simulationSettings) {
+        this.Hellosm = simulationSettings;
+    }
 @FXML
 protected void onHelloButtonClick(ActionEvent event) {
     System.out.println("Button clicked");
@@ -86,11 +62,15 @@ protected void onHelloButtonClick(ActionEvent event) {
         return;
     }
     ElevatorSimSceneController elevatorSimSceneController = loader.getController();
-    SimulationSettings simulationSettings = new SimulationSettings();
-    elevatorSimSceneController.setSimulationSettings(simulationSettings);
-    elevatorSimSceneController.setRun_simulation(getRunSimulation());
-    elevatorSimSceneController.setHelloController(this);
-    elevatorSimSceneController.setSimulationSettings(sm);
+    //elevatorSimSceneController.setSimulationSettings(Hellosm);
+    System.out.println("ccc"+ Hellosm.getfloors());
+    elevatorSimSceneController.setRun_simulation(Hellosm.getRunSimulation());
+    elevatorSimSceneController.setFloors(Hellosm.getfloors());
+    elevatorSimSceneController.setNumber_of_elevators(Hellosm.getNumber_of_elevators());
+    elevatorSimSceneController.setAddPassenger(Hellosm.getAddPassenger());
+    elevatorSimSceneController.initializeTimeline();
+    //elevatorSimSceneController.setHelloController(SimulationSettingssm);
+    //elevatorSimSceneController.setSimulationSettings(sm);
     Scene ElevatorSimScene = new Scene(root);
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.setScene(ElevatorSimScene);

@@ -52,11 +52,12 @@ public class ElevatorSimulation extends SimulationSettings {
     }
 
     HelloController helloController;
+
     public ElevatorSimulation(HelloController helloController) {
         this.helloController = helloController;
     }
     public ElevatorSimulation() {}
-    public HelloController hw;
+
     //---------------------------------------------------------------------------------------------------
     private boolean runSimulation(SimulationSettings _simulationSettings) {
 
@@ -67,8 +68,9 @@ public class ElevatorSimulation extends SimulationSettings {
             try {
                 if (segments[a].contains("floors=")) {
                     String numericPart = segments[a].substring("floors=".length());
-                    floors = Integer.parseInt(numericPart);
-                    helloController.setfloors(floors);
+                    sm.floors = Integer.parseInt(numericPart);
+
+                    //helloController.setfloors(floors);
                 } else if (segments[a].contains("add_passenger(")) {
                     String numericPart = segments[a].substring("add_passenger(".length());
                     numericPart = numericPart.substring(0, numericPart.length() - 1);
@@ -112,34 +114,28 @@ public class ElevatorSimulation extends SimulationSettings {
                     sm.passenger_request_percentage.add(newpassenger_request_percentage);
                 } else if (segments[a].contains("number_of_elevators=")) {
                     String numericPart = segments[a].substring("number_of_elevators=".length());
-                    number_of_elevators = Integer.parseInt(numericPart);
-                    helloController.setNumber_of_elevators(number_of_elevators);
+                    sm.number_of_elevators = Integer.parseInt(numericPart);
+                    //helloController.setNumber_of_elevators(number_of_elevators);
                 } else if (segments[a].contains("run_simulation=")) {
                     String numericPart = segments[a].substring("run_simulation=".length());
-                    run_simulation = Integer.parseInt(numericPart);
-                    helloController.setRunSimulation(run_simulation);
+                    sm.run_simulation = Integer.parseInt(numericPart);
+                    //helloController.setRunSimulation(run_simulation);
                 }
             } catch (Exception e) {
                 System.out.println("Bad Input: can not read string value");
             }
         }
-        System.out.println("fff" + sm + "fff");
-        hw = new HelloController(sm);
+        sm.setSm(sm);
+        helloController.setSimulationSettings(sm);
+
 
 
 //---------------------------------------------------------------------------------------------------
 
         //printing out the contains of arraylist and variables
         //Building parameters
-
-        System.out.println("floors: " + floors);
-        System.out.println("");
         System.out.println(sm.toString());
-        //Number of elevators in the system
-        System.out.println("number_of_elevatorss: " + number_of_elevators);
-        System.out.println("");
-        //Run simulation for 60 iterations
-        System.out.println("run_simulation " + run_simulation);
+
         return true;
     }
 

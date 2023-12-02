@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
 import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;import com.example.elevatorsimulator.SimulationSettings;
 
-public class ElevatorSimSceneController implements Initializable{
+public class ElevatorSimSceneController extends SimulationSettings implements Initializable{
 //FMML-----------------------------------------------------------------------------------------
     @FXML
     private Text run_simulationCounterText;
@@ -54,20 +54,24 @@ public class ElevatorSimSceneController implements Initializable{
     private int Number_of_Elevators;
     public HelloController helloController;
     public ElevatorSimSceneController elevatorSimSceneController;
-    public SimulationSettings simulationSettings;
+    private SimulationSettings simulationSettings;
     public ElevatorSimulation elevatorsimulation;
     private ElevatorSimulation elevatorSimulation;
+    private ArrayList<AddPassenger> esscAddPassenger;
+
 
 //set and get methods-----------------------------------------------------------------------------------------
     // Constructor
-    public ElevatorSimSceneController(SimulationSettings sm) {
-        this.simulationSettings = sm;
+    public ElevatorSimSceneController() {
+        this.simulationSettings = new SimulationSettings();
+    }
+    public void setSimulationSettings(SimulationSettings simulationSettings) {
+        this.simulationSettings = simulationSettings;
     }
     public void setRun_simulation(int a) {
         this.Run_simulation = a;
     }
-    public void setHelloController(HelloController helloController) {
-        this.helloController = helloController;
+    public void setHelloController(SimulationSettings sm) {
         initializeTimeline();
     }
     public void setElevatorSimSceneController(ElevatorSimSceneController elevatorSimSceneController) {
@@ -76,49 +80,34 @@ public class ElevatorSimSceneController implements Initializable{
     public void setFloors(int Floors) {
         this.Floors = Floors;
     }
-    public void setSimulationSettings(SimulationSettings simulationSettings) {
-        this.simulationSettings = simulationSettings;
+    public void setNumber_of_elevators(int Number_of_elevators) {
+        this.Number_of_Elevators = Number_of_elevators;
     }
     public void setElevatorSimulation(ElevatorSimulation elevatorSimulation){
         this.elevatorSimulation = elevatorSimulation;
     }
-    public ElevatorSimSceneController() {
+    public void setAddPassenger(ArrayList<AddPassenger> a){
+        this.esscAddPassenger = new ArrayList<>(a);
     }
 
 
 //initializeTimeline (to get helloController working)-------------------------------------------------------------------------
     public void initializeTimeline() {
-        ArrayList<Integer> intArrayList = new ArrayList<>();
+        /*
         Number_of_Elevators = helloController.getNumber_of_elevators();
         Run_simulation = helloController.getRunSimulation();
         Floors = helloController.getfloors();
+
+         */
+
         VBoxfloor = new VBox();
         floorsContainer.setContent(VBoxfloor);
         for (int a = 0; a < Floors; a++) {
             createFloor(a);
         }
-        //intArrayList.add(2);
-        //System.out.println(intArrayList);
-        //System.out.println("ElevatorSimSceneController" + esc.add_passenger);
-        //ArrayLizst<AddPassenger> passengers = simulationSettings.getAddPassenger();
-        //System.out.println("Size of add_passenger: " + passengers.size());
-        //⌄⌄⌄⌄⌄⌄This creates an error b/c the list is blank⌄⌄⌄⌄⌄⌄that why it is commented
 
-        //printPassenger();
+        System.out.println("ddd"+ esscAddPassenger);
 
-        //This part does not work the output is []
-        //add_passengerList is empty or null.
-
-        // Now you can iterate over the addPassengerList and access the information
-        /*
-        for (AddPassenger addPassenger : addPassengerList) {
-            System.out.println("Passenger ID: " + addPassenger.getPassengerID());
-            System.out.println("Start Floor: " + addPassenger.getstartFloor());
-            // Add other fields as needed
-        }
-
-         */
-        System.out.println("sss"+ simulationSettings.add_passenger + "sss");
         //--------------------------------------------------------------
         run_simulationCounterText.setText(String.valueOf(i));
         timeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> {
