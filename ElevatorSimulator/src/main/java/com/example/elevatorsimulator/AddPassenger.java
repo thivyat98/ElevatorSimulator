@@ -40,4 +40,7 @@ public class AddPassenger  {
         return endFloor;
     }
     public String getpassengerType(){return passengerType;}
+    public double getAddPassengerpercentage(){
+        return AddPassengerpercentage;
+    }
 }

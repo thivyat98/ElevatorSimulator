@@ -34,8 +34,8 @@ import java.util.ResourceBundle;
 import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;import com.example.elevatorsimulator.SimulationSettings;
 
-public class ElevatorSimSceneController extends SimulationSettings{
-//FMML-----------------------------------------------------------------------------------------
+public class ElevatorSimSceneController extends SimulationSettings {
+    //FMML-----------------------------------------------------------------------------------------
     @FXML
     private Text run_simulationCounterText;
     @FXML
@@ -53,7 +53,7 @@ public class ElevatorSimSceneController extends SimulationSettings{
     @FXML
     private TextArea historyLogTextArea;
 
-//variables-----------------------------------------------------------------------------------------
+    //variables-----------------------------------------------------------------------------------------
     int i = 0;
     private int Run_simulation;
     private int Floors;
@@ -67,43 +67,57 @@ public class ElevatorSimSceneController extends SimulationSettings{
     private ArrayList<AddElevator> esscAddElevator;
     private ArrayList<RequestPercentage> esscRequestPercentage;
     private ArrayList<PassengerRequestPercentage> esscPassengerRequestPercentage;
-    private ArrayList<Elevator> essccurrentElevators = new ArrayList<>();;
-    public ArrayList<StandardPassenger> sp = new ArrayList<>();;
-    public ArrayList<VIPPassenger> vp = new ArrayList<>();;
-    public ArrayList<GlassPassenger> gp = new ArrayList<>();;
-    public ArrayList<FreightPassenger> fp= new ArrayList<>();;
+    private ArrayList<Elevator> essccurrentElevators = new ArrayList<>();
+    ;
+    public ArrayList<StandardPassenger> sp = new ArrayList<>();
+    ;
+    public ArrayList<VIPPassenger> vp = new ArrayList<>();
+    ;
+    public ArrayList<GlassPassenger> gp = new ArrayList<>();
+    ;
+    public ArrayList<FreightPassenger> fp = new ArrayList<>();
+    ;
 
 
-//set and get methods-----------------------------------------------------------------------------------------
+    //set and get methods-----------------------------------------------------------------------------------------
     // Constructor
     public ElevatorSimSceneController() {
         this.simulationSettings = new SimulationSettings();
     }
+
     public void setRun_simulation(int a) {
         this.Run_simulation = a;
     }
+
     public void setFloors(int Floors) {
         this.Floors = Floors;
     }
+
     public void setNumber_of_elevators(int Number_of_elevators) {
         this.Number_of_Elevators = Number_of_elevators;
     }
-    public void setAddPassenger(ArrayList<AddPassenger> a){
+
+    public void setAddPassenger(ArrayList<AddPassenger> a) {
         this.esscAddPassenger = new ArrayList<>(a);
     }
-    public void setAddElevator(ArrayList<AddElevator> a){
+
+    public void setAddElevator(ArrayList<AddElevator> a) {
         this.esscAddElevator = new ArrayList<>(a);
     }
+
     public void setRequestPercentage(ArrayList<RequestPercentage> a) {
         this.esscRequestPercentage = new ArrayList<>(a);
     }
+
     public void setPassengerRequestPercentage(ArrayList<PassengerRequestPercentage> a) {
         this.esscPassengerRequestPercentage = new ArrayList<>(a);
     }
-    public void setcurrentElevators(ArrayList<Elevator> a){
+
+    public void setcurrentElevators(ArrayList<Elevator> a) {
         this.essccurrentElevators = new ArrayList<>(a);
     }
-//initializeTimeline (to get helloController working)-------------------------------------------------------------------------
+
+    //initializeTimeline (to get helloController working)-------------------------------------------------------------------------
     public void initializeTimeline() {
         VBoxfloor = new VBox();
         floorsContainer.setContent(VBoxfloor);
@@ -113,7 +127,6 @@ public class ElevatorSimSceneController extends SimulationSettings{
         for (int a = 0; a < essccurrentElevators.size(); a++) {
             System.out.println(essccurrentElevators.get(a).toString());
         }
-        //passengerRequestLogic();
         passengerRequestLogic();
         historyLogTextArea.setEditable(false);
 
@@ -123,7 +136,7 @@ public class ElevatorSimSceneController extends SimulationSettings{
         //TimeLine-----------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------------
         run_simulationCounterText.setText(String.valueOf(i));
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
             i++;
             run_simulationCounterText.setText(String.valueOf(i));
             elevatorlogic();
@@ -138,27 +151,29 @@ public class ElevatorSimSceneController extends SimulationSettings{
         System.out.println("Timeline played");
         historyLogTextArea.appendText("Timeline played \n");
     }
-//----------------------------------------------------------------------------------------------------------------------------
+
+    //----------------------------------------------------------------------------------------------------------------------------
 //PauseTimeLine method--------------------------------------------------------------------------------------------------------
     @FXML
     public void PauseTimeline() {
-        if (playButton.getText().contains("II") &&  timeline.getStatus() == Animation.Status.PAUSED) {
+        if (playButton.getText().contains("II") && timeline.getStatus() == Animation.Status.PAUSED) {
             timeline.play();
             playButton.setText("▶");
             System.out.println("Timeline resumed");
             historyLogTextArea.appendText("Timeline resumed \n");
-        } else if (playButton.getText().contains("▶") && timeline.getStatus() == Animation.Status.RUNNING){
+        } else if (playButton.getText().contains("▶") && timeline.getStatus() == Animation.Status.RUNNING) {
             timeline.pause();
             playButton.setText("II");
             System.out.println("Timeline paused");
             historyLogTextArea.appendText("Timeline paused \n");
         }
     }
-//Floor-------------------------------------------------------------------------------------------------------------------------
+
+    //Floor-------------------------------------------------------------------------------------------------------------------------
     private void createFloor(int floorIndex) {
         HBox hBoxFloor = createFloorPane(floorIndex);
         VBoxfloor.getChildren().add(hBoxFloor);
-        System.out.println("Floor " + (Floors-floorIndex ) + " created.");
+        System.out.println("Floor " + (Floors - floorIndex) + " created.");
         TextArea TextAreaFloorNum = new TextArea();
         TextAreaFloorNum.setText(String.valueOf(Floors - floorIndex));
         TextAreaFloorNum.setStyle("-fx-font-size: 20.5; -fx-font-weight: bold; -fx-alignment: center; -fx-control-inner-background: darkgray;");
@@ -168,7 +183,7 @@ public class ElevatorSimSceneController extends SimulationSettings{
         HBox floorContentHBox = new HBox(TextAreaFloorNum);
         floorContentHBox.setAlignment(Pos.CENTER_LEFT);
         hBoxFloor.getChildren().add(floorContentHBox);
-        for (int e = 0; e < Number_of_Elevators ; e++) {
+        for (int e = 0; e < Number_of_Elevators; e++) {
             int quarter = Number_of_Elevators / 4;
             if (e < quarter) {
                 createElevator(hBoxFloor, e, floorIndex, "StandardElevator");
@@ -176,13 +191,14 @@ public class ElevatorSimSceneController extends SimulationSettings{
                 createElevator(hBoxFloor, e, floorIndex, "ExpressElevator");
             } else if (e < 3 * quarter) {
                 createElevator(hBoxFloor, e, floorIndex, "FreightElevator");
-            } else if (Number_of_Elevators % 2 == 1){
+            } else if (Number_of_Elevators % 2 == 1) {
                 createElevator(hBoxFloor, e, floorIndex, "StandardElevator");
             } else if (e <= Number_of_Elevators) {
                 createElevator(hBoxFloor, e, floorIndex, "GlassElevator");
             }
         }
     }
+
     private HBox createFloorPane(int floorIndex) {
         HBox hBoxFloor = new HBox();
         hBoxFloor.setAlignment(Pos.BOTTOM_LEFT);
@@ -191,20 +207,20 @@ public class ElevatorSimSceneController extends SimulationSettings{
         hBoxFloor.setPrefHeight(150);
         return hBoxFloor;
     }
-//Elevator-------------------------------------------------------------------------------------------------
+
+    //Elevator-------------------------------------------------------------------------------------------------
     private ToggleButton createElevatorToggleButton(int elevatorIndex, boolean firstfloor, String elevatortype) {
         ToggleButton elevatorButton = new ToggleButton();
-        if (firstfloor == false){
+        if (firstfloor == false) {
             Image elevatorImage = new Image("C:\\Users\\jyi95\\Downloads\\elevatorEmpty.png");
             ImageView imageView = new ImageView(elevatorImage);
             imageView.setFitWidth(100);
             imageView.setFitHeight(120);
             elevatorButton = new ToggleButton("", imageView);
             StackPane.setAlignment(imageView, Pos.BOTTOM_CENTER);
-        }
-        else if (firstfloor == true){
+        } else if (firstfloor == true) {
             Image elevatorImageclosed = new Image("C:\\Users\\jyi95\\Downloads\\elevatorClosed.png");
-            ImageView imageViewclosed  = new ImageView(elevatorImageclosed);
+            ImageView imageViewclosed = new ImageView(elevatorImageclosed);
             imageViewclosed.setFitWidth(100);
             imageViewclosed.setFitHeight(120);
             elevatorButton = new ToggleButton("", imageViewclosed);
@@ -222,7 +238,7 @@ public class ElevatorSimSceneController extends SimulationSettings{
         //-------------------------------------------------------------------------------------------------------------
         boolean firstfloor = false;
         int currentfloorNum = Floors - floorNum;
-        if (currentfloorNum == 1){
+        if (currentfloorNum == 1) {
             firstfloor = true;
         }
         //-------------------------------------------------------------------------------------------------------------
@@ -241,7 +257,7 @@ public class ElevatorSimSceneController extends SimulationSettings{
             for (int a = 0; a < esscAddPassenger.size(); a++) {
                 AddPassenger passenger = esscAddPassenger.get(a);
                 if (passenger.getstartFloor() == currentfloorNum + 1) {
-                    createPassengerBox(passenger.getPassengerID(), Floors - passenger.getstartFloor(), passenger.getendFloor(),passenger);
+                    createPassengerBox(passenger.getPassengerID(), Floors - passenger.getstartFloor(), passenger.getendFloor(), passenger);
                 }
             }
         }
@@ -251,8 +267,8 @@ public class ElevatorSimSceneController extends SimulationSettings{
         });
     }
 
-//Passenger-------------------------------------------------------------------------------------------------
-    private HBox createPassengerBox(int passengerID, int startFloor,int endFloor, AddPassenger passenger) {
+    //Passenger-------------------------------------------------------------------------------------------------
+    private HBox createPassengerBox(int passengerID, int startFloor, int endFloor, AddPassenger passenger) {
         HBox passengerBox = new HBox();
         passengerBox.setAlignment(Pos.BOTTOM_CENTER);
         passengerBox.setPrefSize(90, 90);
@@ -265,17 +281,17 @@ public class ElevatorSimSceneController extends SimulationSettings{
         } else if (passenger.getpassengerType().equals("\"VIP\"")) {
             Image passengerImage = new Image("C:\\Users\\jyi95\\Downloads\\VIPPassenger.png");
             imageView = new ImageView(passengerImage);
-            vp.add(new VIPPassenger(passengerID, Floors - startFloor,endFloor));
+            vp.add(new VIPPassenger(passengerID, Floors - startFloor, endFloor));
             System.out.println(vp.get(vp.size() - 1).toString());
         } else if (passenger.getpassengerType().equals("\"Freight\"")) {
             Image passengerImage = new Image("C:\\Users\\jyi95\\Downloads\\FreightPassenger.png");
             imageView = new ImageView(passengerImage);
-            fp.add(new FreightPassenger(passengerID, Floors - startFloor,endFloor));
+            fp.add(new FreightPassenger(passengerID, Floors - startFloor, endFloor));
             System.out.println(fp.get(fp.size() - 1).toString());
         } else if (passenger.getpassengerType().equals("\"Glass\"")) {
             Image passengerImage = new Image("C:\\Users\\jyi95\\Downloads\\GlassPassenger.png");
             imageView = new ImageView(passengerImage);
-            gp.add(new GlassPassenger(passengerID, Floors - startFloor,endFloor));
+            gp.add(new GlassPassenger(passengerID, Floors - startFloor, endFloor));
             System.out.println(gp.get(gp.size() - 1).toString());
         }
 
@@ -288,6 +304,7 @@ public class ElevatorSimSceneController extends SimulationSettings{
         addPassengerToFloor(passengerBox, startFloor, passenger);
         return passengerBox;
     }
+
     private void addPassengerToFloor(HBox PassengerBox, int startFloor, AddPassenger passenger) {
         HBox floorContainer = (HBox) VBoxfloor.getChildren().get(startFloor - 1);
         floorContainer.getChildren().add(PassengerBox);
@@ -295,7 +312,7 @@ public class ElevatorSimSceneController extends SimulationSettings{
     }
 //elevator logic and data methods---------------------------------------------------------------------------------
 
-    private ArrayList<Elevator> createElevatorData(int elevatorid, String elevatortype, int floorNum){
+    private ArrayList<Elevator> createElevatorData(int elevatorid, String elevatortype, int floorNum) {
         if (floorNum == 1) {
             if (elevatortype.equals("StandardElevator")) {
                 for (int f = 0; f < esscAddElevator.size(); f++) {
@@ -353,12 +370,14 @@ public class ElevatorSimSceneController extends SimulationSettings{
         }
         return essccurrentElevators;
     }
-    private void elevatorlogic(){
+
+    private void elevatorlogic() {
 
     }
-//passengerRequestLogic------------------------------------------------------------------------------------------------------------------
+
+    //passengerRequestLogic------------------------------------------------------------------------------------------------------------------
     private void passengerRequestLogic() {
-        Random random1 = new Random();
+        Random random = new Random();
         boolean booleanPassengerRequest = false;
         ArrayList<Elevator> availableessccurrentElevators = new ArrayList<>();
         ;
@@ -368,7 +387,7 @@ public class ElevatorSimSceneController extends SimulationSettings{
             for (int f = 0; f < esscPassengerRequestPercentage.size(); f++) {
                 if (esscPassengerRequestPercentage.get(f).getpassengerType().equals("\"Standard\"")) {
                     double spasssengerPickElevator = esscPassengerRequestPercentage.get(f).getPassengerRequestpercentage();
-                    double randomNum1 = random1.nextDouble() * 100;
+                    double randomNum1 = random.nextDouble() * 100;
                     for (int j = 0; j < essccurrentElevators.size(); j++) {
                         if (randomNum1 <= spasssengerPickElevator && sp.get(t).getstartFloor() > essccurrentElevators.get(j).getCurrentFloor() && sp.get(t).getPressedButton() == false) {
                             booleanPassengerRequest = true;
@@ -387,14 +406,13 @@ public class ElevatorSimSceneController extends SimulationSettings{
             booleanPassengerRequest = false;
             availableessccurrentElevators.clear();
         }
-        Random random2 = new Random();
         for (int t = 0; t < vp.size(); t++) {
             for (int f = 0; f < esscPassengerRequestPercentage.size(); f++) {//4
                 if (esscPassengerRequestPercentage.get(f).getpassengerType().equals("\"VIP\"")) {
                     double vpasssengerPickElevator = esscPassengerRequestPercentage.get(f).getPassengerRequestpercentage();
-                    double randomNum2 = random2.nextDouble() * 100;
+                    double randomNum2 = random.nextDouble() * 100;
                     for (int j = 0; j < essccurrentElevators.size(); j++) {
-                        if (randomNum2 <= vpasssengerPickElevator && vp.get(t).getstartFloor() > essccurrentElevators.get(j).getCurrentFloor()&& vp.get(t).getPressedButton() == false) {
+                        if (randomNum2 <= vpasssengerPickElevator && vp.get(t).getstartFloor() > essccurrentElevators.get(j).getCurrentFloor() && vp.get(t).getPressedButton() == false) {
                             booleanPassengerRequest = true;
                             availableessccurrentElevators.add(essccurrentElevators.get(j));
                         }
@@ -402,23 +420,22 @@ public class ElevatorSimSceneController extends SimulationSettings{
                 }
             }
 
-            if (booleanPassengerRequest == true){
+            if (booleanPassengerRequest == true) {
                 vp.get(t).setPressedButton(true);
                 historyLogTextArea.appendText("PassengerID: " + vp.get(t).getPassengerID() + " PassengerType: VIP \n");
-                System.out.println("PassengerID: "+vp.get(t).getPassengerID() + " PassengerType: VIP");
+                System.out.println("PassengerID: " + vp.get(t).getPassengerID() + " PassengerType: VIP");
             }
             randomElevatorPick(availableessccurrentElevators);
             booleanPassengerRequest = false;
             availableessccurrentElevators.clear();
         }
-        Random random3 = new Random();
         for (int t = 0; t < fp.size(); t++) {
             for (int f = 0; f < esscPassengerRequestPercentage.size(); f++) {
                 if (esscPassengerRequestPercentage.get(f).getpassengerType().equals("\"Freight\"")) {
                     double fpasssengerPickElevator = esscPassengerRequestPercentage.get(f).getPassengerRequestpercentage();
-                    double randomNum3 = random3.nextDouble() * 100;
+                    double randomNum3 = random.nextDouble() * 100;
                     for (int j = 0; j < essccurrentElevators.size(); j++) {
-                        if (randomNum3 <= fpasssengerPickElevator  && fp.get(t).getstartFloor() > essccurrentElevators.get(j).getCurrentFloor()&& fp.get(t).getPressedButton() == false) {
+                        if (randomNum3 <= fpasssengerPickElevator && fp.get(t).getstartFloor() > essccurrentElevators.get(j).getCurrentFloor() && fp.get(t).getPressedButton() == false) {
                             booleanPassengerRequest = true;
                             availableessccurrentElevators.add(essccurrentElevators.get(j));
                         }
@@ -426,24 +443,23 @@ public class ElevatorSimSceneController extends SimulationSettings{
                 }
             }
 
-            if (booleanPassengerRequest == true){
+            if (booleanPassengerRequest == true) {
                 fp.get(t).setPressedButton(true);
                 historyLogTextArea.appendText("PassengerID: " + fp.get(t).getPassengerID() + " PassengerType: Freight \n");
-                System.out.println("PassengerID: "+fp.get(t).getPassengerID() + " PassengerType: Freight");
+                System.out.println("PassengerID: " + fp.get(t).getPassengerID() + " PassengerType: Freight");
             }
             randomElevatorPick(availableessccurrentElevators);
             booleanPassengerRequest = false;
             availableessccurrentElevators.clear();
         }
-        Random random4 = new Random();
+
         for (int t = 0; t < gp.size(); t++) {
-            //for loop for the amount of PassengerRequestPercentage (4)
             for (int f = 0; f < esscPassengerRequestPercentage.size(); f++) {
                 if (esscPassengerRequestPercentage.get(f).getpassengerType().equals("\"Glass\"")) {
                     double gpasssengerPickElevator = esscPassengerRequestPercentage.get(f).getPassengerRequestpercentage();
-                    double randomNum4 = random4.nextDouble() * 100;
+                    double randomNum4 = random.nextDouble() * 100;
                     for (int j = 0; j < essccurrentElevators.size(); j++) {
-                        if (randomNum4 <= gpasssengerPickElevator && gp.get(t).getstartFloor() > essccurrentElevators.get(j).getCurrentFloor()&& gp.get(t).getPressedButton() == false) {
+                        if (randomNum4 <= gpasssengerPickElevator && gp.get(t).getstartFloor() > essccurrentElevators.get(j).getCurrentFloor() && gp.get(t).getPressedButton() == false) {
                             booleanPassengerRequest = true;
                             availableessccurrentElevators.add(essccurrentElevators.get(j));
                         }
@@ -451,10 +467,10 @@ public class ElevatorSimSceneController extends SimulationSettings{
                 }
             }
 
-            if (booleanPassengerRequest == true){
+            if (booleanPassengerRequest == true) {
                 gp.get(t).setPressedButton(true);
                 historyLogTextArea.appendText("PassengerID: " + gp.get(t).getPassengerID() + " PassengerType: Glass \n");
-                System.out.println("PassengerID: "+gp.get(t).getPassengerID()+ " PassengerType: Glass");
+                System.out.println("PassengerID: " + gp.get(t).getPassengerID() + " PassengerType: Glass");
             }
             randomElevatorPick(availableessccurrentElevators);
             booleanPassengerRequest = false;
@@ -475,6 +491,32 @@ public class ElevatorSimSceneController extends SimulationSettings{
             randomValue -= requestPercentage;
         }
     }
+
+    private void randomaddPassenger() {
+        Random random = new Random();
+        int randomStartFloor = random.nextInt(Floors) + 1;
+        int randomEndFloor;
+        do {
+            randomEndFloor = random.nextInt(Floors)+1;
+        } while (randomStartFloor == randomEndFloor);
+        int randomPopAdd = random.nextInt(3);
+        double randomValue = random.nextDouble() * 100;
+        for (int u = 0; u < randomPopAdd; u++) {
+            for (int l = 0; l < esscAddPassenger.size(); l++) {
+                double addPopPercentage = esscAddPassenger.get(l).getAddPassengerpercentage();
+                if (randomValue <= addPopPercentage) {
+                    AddPassenger tempesscAddPassenger = new AddPassenger(esscAddPassenger.size()+1, randomStartFloor, randomEndFloor, esscAddPassenger.get(l).getpassengerType(), addPopPercentage);
+                    esscAddPassenger.add(tempesscAddPassenger);
+
+                }
+                //randomValue -= requestPercentage;
+            }
+
+        }
+
+    }
+
+
 
 
 
